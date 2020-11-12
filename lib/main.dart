@@ -46,20 +46,37 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class Data {
+  int _price;
+  String _name;
+
+  Data(this._name, this._price) : super();
+
+  String toString() {
+    return _name + ':' + _price.toString() + '円';
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _message;
+  static final _data = [
+    Data('April', 200),
+    Data('Orange', 150),
+    Data('Peach', 300)
+  ];
+  Data _item;
+
   @override
   void initState() {
     super.initState();
-    _message = 'hello';
+    _item = _data[0];
   }
 
-  void _setMessage() {
+  void _setData() {
     setState(() {
-      _message = 'tapped';
+      _item = (_data..shuffle()).first;
     });
   }
 
@@ -79,11 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Text(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        _message,
+        _item.toString(),
         style: TextStyle(fontSize: 32.0),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _setMessage,
+        onPressed: _setData,
         tooltip: 'set message',
         child: Icon(Icons.star),
       ),
