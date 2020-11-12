@@ -6,7 +6,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final title = "forexreader";
-  final message = "sample message";
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,6 @@ class MyApp extends StatelessWidget {
       title: 'flutter demo',
       home: new MyHomePage(
         title: this.title,
-        message: this.message,
       ),
 
       // This is the theme of your application.
@@ -36,8 +34,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final String title;
-  final String message;
-  MyHomePage({this.title, this.message}) : super();
+  MyHomePage({this.title}) : super();
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -53,7 +50,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String _message;
   @override
+  void initState() {
+    super.initState();
+    _message = 'hello';
+  }
+
+  void _setMessage() {
+    setState(() {
+      _message = 'tapped';
+    });
+  }
+
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -70,8 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Text(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        widget.message,
+        _message,
         style: TextStyle(fontSize: 32.0),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _setMessage,
+        tooltip: 'set message',
+        child: Icon(Icons.star),
       ),
     );
   }
