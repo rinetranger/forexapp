@@ -5,105 +5,78 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final title = "forexreader";
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'flutter demo',
-      home: new MyHomePage(
-        title: this.title,
+      title: 'Generated App',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF2196f3),
+        accentColor: const Color(0xFF2196f3),
+        canvasColor: const Color(0xFFfafafa),
       ),
-
-      // This is the theme of your application.
-      //
-      // Try running your application with "flutter run". You'll see the
-      // application has a blue toolbar. Then, without quitting the app, try
-      // changing the primarySwatch below to Colors.green and then invoke
-      // "hot reload" (press "r" in the console where you ran "flutter run",
-      // or simply save your changes to "hot reload" in a Flutter IDE).
-      // Notice that the counter didn't reset back to zero; the application
-      // is not restarted.
-
-      // This makes the visual density adapt to the platform that you run
-      // the app on. For desktop platforms, the controls will be smaller and
-      // closer together (more dense) than on mobile platforms.
+      home: new MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final String title;
-  MyHomePage({this.title}) : super();
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
+  MyHomePage({Key key}) : super(key: key);
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class Data {
-  int _price;
-  String _name;
-
-  Data(this._name, this._price) : super();
-
-  String toString() {
-    return _name + ':' + _price.toString() + '円';
-  }
-}
-
 class _MyHomePageState extends State<MyHomePage> {
-  static final _data = [
-    Data('April', 200),
-    Data('Orange', 150),
-    Data('Peach', 300)
+  var _gridData = <Widget>[
+    Container(
+      color: Colors.red,
+      child: Text(
+        "One",
+        style: TextStyle(
+            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
+      ),
+    ),
+    Container(
+      color: Colors.blue,
+      child: Text(
+        "two",
+        style: TextStyle(
+            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
+      ),
+    ),
+    Container(
+      color: Colors.green,
+      child: Text(
+        "three",
+        style: TextStyle(
+            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
+      ),
+    ),
+    Container(
+      color: Colors.orange,
+      child: Text(
+        "four",
+        style: TextStyle(
+            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
+      ),
+    ),
   ];
-  Data _item;
 
   @override
-  void initState() {
-    super.initState();
-    _item = _data[0];
-  }
-
-  void _setData() {
-    setState(() {
-      _item = (_data..shuffle()).first;
-    });
-  }
-
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
+    return new Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('App Name'),
       ),
-      body: Text(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        _item.toString(),
-        style: TextStyle(fontSize: 32.0),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _setData,
-        tooltip: 'set message',
-        child: Icon(Icons.star),
+      body: new GridView.extent(
+        maxCrossAxisExtent: 150.0,
+        mainAxisSpacing: 10.0,
+        crossAxisSpacing: 10.0,
+        padding: const EdgeInsets.all(0.0),
+        children: _gridData,
       ),
     );
   }
+
+  void fabPressed() {}
 }
