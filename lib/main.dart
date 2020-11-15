@@ -27,40 +27,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _gridData = <Widget>[
-    Container(
-      color: Colors.red,
-      child: Text(
-        "One",
-        style: TextStyle(
-            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
-      ),
-    ),
-    Container(
-      color: Colors.blue,
-      child: Text(
-        "two",
-        style: TextStyle(
-            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
-      ),
-    ),
-    Container(
-      color: Colors.green,
-      child: Text(
-        "three",
-        style: TextStyle(
-            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
-      ),
-    ),
-    Container(
-      color: Colors.orange,
-      child: Text(
-        "four",
-        style: TextStyle(
-            fontSize: 32.0, fontWeight: FontWeight.w400, fontFamily: "Robot"),
-      ),
-    ),
-  ];
+  var _message;
+  final controller = TextEditingController();
+
+  @override
+  void initState() {
+    _message = 'ok';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,15 +42,54 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('App Name'),
       ),
-      body: new GridView.extent(
-        maxCrossAxisExtent: 150.0,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
-        padding: const EdgeInsets.all(0.0),
-        children: _gridData,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                _message,
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Robot"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextField(
+                controller: controller,
+                style: TextStyle(
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Robot"),
+              ),
+            ),
+            FlatButton(
+              padding: EdgeInsets.all(10.0),
+              color: Colors.lightBlueAccent,
+              child: Text(
+                "Push!",
+                style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Robot",
+                ),
+              ),
+              onPressed: buttonPressed,
+            )
+          ],
+        ),
       ),
     );
   }
 
-  void fabPressed() {}
+  void buttonPressed() {
+    setState(() {
+      _message = 'you said:' + controller.text;
+    });
+  }
 }
